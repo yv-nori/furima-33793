@@ -25,7 +25,7 @@
 | shipping_fee_status | references | null: false, foreign_key: true |
 | prefecture          | references | null: false, foreign_key: true |
 | scheduled_delivery  | references | null: false, foreign_key: true |
-| price               | int        | null: false                    |
+| price               | integer    | null: false                    |
 | sale_user           | references | null: false, foreign_key: true |
 ### Association
 - belong_to :user
@@ -49,7 +49,7 @@
 | city         | string     | null: false                    |
 | addresses    | text       | null: false                    |
 | building     | text       | null: false                    |
-| phone_number | int        | null: false                    |
+| phone_number | integer    | null: false                    |
 | item         | references | null: false, foreign_key: true |
 ### Association
 - has_one :item
