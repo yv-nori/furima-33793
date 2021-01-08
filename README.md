@@ -11,7 +11,6 @@
 | last_name_kana  | string     | null: false                    |
 | first_name_kana | string     | null: false                    |
 | birth_date      | date       | null: false                    |
-| item            | references | null: false, foreign_key: true |
 ### Association
 - has_many :items
 - has_many :orders
