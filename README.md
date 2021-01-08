@@ -23,7 +23,7 @@
 | info                | text       | null: false                    |
 | category            | references | null: false, foreign_key: true |
 | sales_status        | references | null: false, foreign_key: true |
-| shipping-fee-status | references | null: false, foreign_key: true |
+| shipping_fee_status | references | null: false, foreign_key: true |
 | prefecture          | references | null: false, foreign_key: true |
 | scheduled_delivery  | references | null: false, foreign_key: true |
 | price               | int        | null: false                    |
