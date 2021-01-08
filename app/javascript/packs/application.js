@@ -4,7 +4,8 @@
 // that code so it'll be compiled.
 
 require("@rails/ujs").start()
-require("turbolinks").start()
+// 画面遷移を高速化するが、JSが発火しないケースもある
+// require("turbolinks").start()
 require("@rails/activestorage").start()
 require("channels")
 
