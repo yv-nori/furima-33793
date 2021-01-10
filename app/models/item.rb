@@ -24,10 +24,6 @@ class Item < ApplicationRecord
                numericality: { other_than: 0 } 
     validates :scheduled_delivery_id,
                numericality: { other_than: 0 } 
-    validates :price, numericality: {
-               only_integer: true,
-               greather_than: 300,
-               less_than: 9999999
-    }
+    validates :price, inclusion: { in: 300..9999999 }
   end
 end
