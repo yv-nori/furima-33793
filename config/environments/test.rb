@@ -4,6 +4,8 @@
 # and recreated between test runs. Don't rely on the data there!
 
 Rails.application.configure do
+  #テストコード実行時に【Mysql2::Error: MySQL client is not connected】というエラーが出るので下記を記述
+  config.active_job.queue_adapter = :inline
   # Settings specified here will take precedence over those in config/application.rb.
   
   config.cache_classes = false
