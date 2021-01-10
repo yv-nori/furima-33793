@@ -7,10 +7,11 @@ class Item < ApplicationRecord
   belongs_to :category
   belongs_to :sales_status
   belongs_to :shipping_fee_status
-  belongs_to :perfecture
+  belongs_to :prefecture
   belongs_to :scheduled_delivery
 
   with_options presence: true do
+    validates :image
     validates :name
     validates :info
     validates :category_id,
@@ -19,7 +20,7 @@ class Item < ApplicationRecord
                numericality: { other_than: 0 } 
     validates :shipping_fee_status_id,
                numericality: { other_than: 0 } 
-    validates :perfecture_id,
+    validates :prefecture_id,
                numericality: { other_than: 0 } 
     validates :scheduled_delivery_id,
                numericality: { other_than: 0 } 
@@ -29,5 +30,4 @@ class Item < ApplicationRecord
                less_than: 9999999
     }
   end
-  validates :genre_id, numericality: { other_than: 0 } 
 end
