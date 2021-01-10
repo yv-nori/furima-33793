@@ -9,4 +9,15 @@ class Item < ApplicationRecord
   belongs_to :shipping_fee_status
   belongs_to :perfecture
   belongs_to :scheduled_delivery
+
+  with_options presence: true do
+    validates :name
+    validates :info
+    validates :category_id
+    validates :sales_status_id
+    validates :shipping_fee_status_id
+    validates :perfecture_id
+    validates :scheduled_delivery_id
+    validates :price, :only_integer, :greather_than 300, :less_than 9999999
+  end
 end
