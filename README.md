@@ -29,6 +29,7 @@
 | sale_user              | references | null: false, foreign_key: true |
 ### Association
 - belong_to :user
+- has_one_attached :image
 - has_one   :order
 - has_one   :address
 
