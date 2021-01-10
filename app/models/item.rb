@@ -13,11 +13,21 @@ class Item < ApplicationRecord
   with_options presence: true do
     validates :name
     validates :info
-    validates :category_id
-    validates :sales_status_id
-    validates :shipping_fee_status_id
-    validates :perfecture_id
-    validates :scheduled_delivery_id
-    validates :price, :only_integer, :greather_than 300, :less_than 9999999
+    validates :category_id,
+               numericality: { other_than: 0 } 
+    validates :sales_status_id, 
+               numericality: { other_than: 0 } 
+    validates :shipping_fee_status_id,
+               numericality: { other_than: 0 } 
+    validates :perfecture_id,
+               numericality: { other_than: 0 } 
+    validates :scheduled_delivery_id,
+               numericality: { other_than: 0 } 
+    validates :price, numericality: {
+               only_integer: true,
+               greather_than: 300,
+               less_than: 9999999
+    }
   end
+  validates :genre_id, numericality: { other_than: 0 } 
 end
