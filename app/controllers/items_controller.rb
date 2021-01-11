@@ -14,15 +14,15 @@ class ItemsController < ApplicationController
   #   @item = Item.find(params[:id])
   # end
 
-  # def create
-  #   @item = Item.new(items_params)
-  #   if @item.valid?
-  #     @item.save
-  #     redirect_to root_path
-  #   else
-  #     render :new
-  #   end
-  # end
+  def create
+    @item = Item.new(items_params)
+    if @item.valid?
+      @item.save
+      redirect_to root_path
+    else
+      render :new
+    end
+  end
 
   # def edit
   #   @item = Item.find(params[:id])
