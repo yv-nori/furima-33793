@@ -1,13 +1,13 @@
 # テーブル設計
 
 ## users テーブル
-| Column          | Type       | Options                        |
-| --------------- | ---------- | ------------------------------ |
-| nickname        | string     | null: false                    |
-| email           | string     | null: false                    |
-| password        | string     | null: false                    |
-| last_name       | string     | null: false                    |
-| first_name      | string     | null: false                    |
+| Column            | Type       | Options                        |
+| ---------------   | ---------- | ------------------------------ |
+| nickname          | string     | null: false                    |
+| email             | string     | null: false                    |
+| encrypted_password| string     | null: false                    |
+| last_name         | string     | null: false                    |
+| first_name       | string     | null: false                    |
 | last_name_kana  | string     | null: false                    |
 | first_name_kana | string     | null: false                    |
 | birth_date      | date       | null: false                    |
@@ -26,20 +26,21 @@
 | prefecture_id          | integer    | null: false                    |
 | scheduled_delivery_id  | integer    | null: false                    |
 | price                  | integer    | null: false                    |
-| sale_user              | references | null: false, foreign_key: true |
+| user                   | references | null: false, foreign_key: true |
 ### Association
 - belong_to :user
 - has_one   :order
-- has_one   :address
+
 
 ## orders テーブル
 | Column      | Type       | Options                        |
 | ----------- | ---------- | ------------------------------ |
-| buy_user    | references | null: false, foreign_key: true |
+| user        | references | null: false, foreign_key: true |
 | item        | references | null: false, foreign_key: true |
 ### Association
 - belongs_to :user
-- has_one    :item
+- belongs_to :item
+- has_one   :address
 
 ## addresses テーブル
 | Column        | Type       | Options                        |
@@ -47,9 +48,9 @@
 | postal_code   | string     | null: false                    |
 | prefecture_id | integer    | null: false                    |
 | city          | string     | null: false                    |
-| addresses     | text       | null: false                    |
-| building      | text       | null: false                    |
-| phone_number  | integer    | null: false                    |
-| item          | references | null: false, foreign_key: true |
+| addresses     | string     | null: false                    |
+| building      | string     |                                |
+| phone_number  | string     | null: false                    |
+| order         | references | null: false, foreign_key: true |
 ### Association
-- has_one :item
+- belongs_to :order
