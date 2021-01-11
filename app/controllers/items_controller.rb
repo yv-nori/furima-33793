@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :edit, :update, :destroy]
-  before_action :move_to_index, only: [:edit ,:update]
+  before_action :move_to_index, only: [:edit, :update, :destroy]
 
   def index
     @items = Item.all
@@ -39,23 +39,24 @@ class ItemsController < ApplicationController
   end
 
   def destroy
-
+    item = Item.find(params[:id])
+    item.destroy
+    redirect_to root_path
   end
 
   private
+
   def items_params
     params.require(:item).permit(
       :image, :name, :info, :category_id,
       :sales_status_id, :shipping_fee_status_id,
       :prefecture_id, :scheduled_delivery_id,
-      :price).merge(sale_user_id: current_user.id)
+      :price
+    ).merge(sale_user_id: current_user.id)
   end
+
   def move_to_index
-    if current_user.id != Item.find(params[:id]).sale_user.id
-      redirect_to root_path
-    end
-    if Item.find(params[:id]).order.present?
-      redirect_to root_path
-    end
+    redirect_to root_path if current_user.id != Item.find(params[:id]).sale_user.id
+    redirect_to root_path if Item.find(params[:id]).order.present?
   end
 end
