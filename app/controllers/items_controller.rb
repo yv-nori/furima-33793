@@ -3,7 +3,7 @@ class ItemsController < ApplicationController
   before_action :move_to_index, only: [:edit, :update, :destroy]
 
   def index
-    @items = Item.all
+    # @items = Item.all
   end
 
   def new
@@ -16,8 +16,7 @@ class ItemsController < ApplicationController
 
   def create
     @item = Item.new(items_params)
-    if @item.valid?
-      @item.save
+    if @item.save
       redirect_to root_path
     else
       render :new
