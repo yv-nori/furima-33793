@@ -1,5 +1,5 @@
 class Item < ApplicationRecord
-  belongs_to :sale_user, class_name: "User"
+  belongs_to :sale_user, class_name: 'User'
   has_one_attached :image
   has_one    :order
   has_one    :address
@@ -15,15 +15,15 @@ class Item < ApplicationRecord
     validates :name
     validates :info
     validates :category_id,
-               numericality: { other_than: 0 } 
-    validates :sales_status_id, 
-               numericality: { other_than: 0 } 
+              numericality: { other_than: 0 }
+    validates :sales_status_id,
+              numericality: { other_than: 0 }
     validates :shipping_fee_status_id,
-               numericality: { other_than: 0 } 
+              numericality: { other_than: 0 }
     validates :prefecture_id,
-               numericality: { other_than: 0 } 
+              numericality: { other_than: 0 }
     validates :scheduled_delivery_id,
-               numericality: { other_than: 0 } 
-    validates :price, inclusion: { in: 300..9999999 }
+              numericality: { other_than: 0 }
+    validates :price, inclusion: { in: 300..9_999_999 }
   end
 end
