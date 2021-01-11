@@ -22,6 +22,19 @@ class ItemsController < ApplicationController
     end
   end
 
+  def edit
+
+  end
+
+  def update
+    item = Item.find(params[:id])
+    item.update(item_params)
+  end
+
+  def destroy
+
+  end
+
   private
   def items_params
     params.require(:item).permit(
