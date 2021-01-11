@@ -10,39 +10,39 @@ class ItemsController < ApplicationController
     @item = Item.new
   end
 
-  def show
-    @item = Item.find(params[:id])
-  end
+  # def show
+  #   @item = Item.find(params[:id])
+  # end
 
-  def create
-    @item = Item.new(items_params)
-    if @item.valid?
-      @item.save
-      redirect_to root_path
-    else
-      render :new
-    end
-  end
+  # def create
+  #   @item = Item.new(items_params)
+  #   if @item.valid?
+  #     @item.save
+  #     redirect_to root_path
+  #   else
+  #     render :new
+  #   end
+  # end
 
-  def edit
-    @item = Item.find(params[:id])
-  end
+  # def edit
+  #   @item = Item.find(params[:id])
+  # end
 
-  def update
-    item = Item.find(params[:id])
-    if item.update(items_params)
-      redirect_to action: :show
-    else
-      @item = Item.new(items_params)
-      render :edit
-    end
-  end
+  # def update
+  #   item = Item.find(params[:id])
+  #   if item.update(items_params)
+  #     redirect_to action: :show
+  #   else
+  #     @item = Item.new(items_params)
+  #     render :edit
+  #   end
+  # end
 
-  def destroy
-    item = Item.find(params[:id])
-    item.destroy
-    redirect_to root_path
-  end
+  # def destroy
+  #   item = Item.find(params[:id])
+  #   item.destroy
+  #   redirect_to root_path
+  # end
 
   private
 
