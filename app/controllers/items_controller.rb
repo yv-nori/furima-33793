@@ -1,5 +1,7 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, only: [:new]
+  before_action :authenticate_user!, only: [:new, :edit, :update, :destroy]
+  before_action :move_to_index, only: [:edit ,:update]
+
   def index
     @items = Item.all
   end
@@ -23,12 +25,17 @@ class ItemsController < ApplicationController
   end
 
   def edit
-
+    @item = Item.find(params[:id])
   end
 
   def update
     item = Item.find(params[:id])
-    item.update(item_params)
+    if item.update(items_params)
+      redirect_to action: :show
+    else
+      @item = Item.new(items_params)
+      render :edit
+    end
   end
 
   def destroy
@@ -42,5 +49,13 @@ class ItemsController < ApplicationController
       :sales_status_id, :shipping_fee_status_id,
       :prefecture_id, :scheduled_delivery_id,
       :price).merge(sale_user_id: current_user.id)
+  end
+  def move_to_index
+    if current_user.id != Item.find(params[:id]).sale_user.id
+      redirect_to root_path
+    end
+    if Item.find(params[:id]).order.present?
+      redirect_to root_path
+    end
   end
 end
