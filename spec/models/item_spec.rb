@@ -83,6 +83,14 @@ describe Item do
       let(:item) { build(:item, price: 'okane') }
       it_behaves_like '登録できない'
     end
+    context '半角英数字混合の場合' do
+      let(:item) { build(:item, price: '123okane') }
+      it_behaves_like '登録できない'
+    end
+    context '全角文字の場合' do
+      let(:item) { build(:item, price: 'おかね') }
+      it_behaves_like '登録できない'
+    end
   end
   describe 'user_idの検証' do
     context '空の場合' do
