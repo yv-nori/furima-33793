@@ -10,9 +10,9 @@ class ItemsController < ApplicationController
     @item = Item.new
   end
 
-  # def show
-  #   @item = Item.find(params[:id])
-  # end
+  def show
+    @item = Item.find(params[:id])
+  end
 
   def create
     @item = Item.new(items_params)
@@ -23,19 +23,19 @@ class ItemsController < ApplicationController
     end
   end
 
-  # def edit
-  #   @item = Item.find(params[:id])
-  # end
+  def edit
+    @item = Item.find(params[:id])
+  end
 
-  # def update
-  #   item = Item.find(params[:id])
-  #   if item.update(items_params)
-  #     redirect_to action: :show
-  #   else
-  #     @item = Item.new(items_params)
-  #     render :edit
-  #   end
-  # end
+  def update
+    item = Item.find(params[:id])
+    if item.update(items_params)
+      redirect_to action: :show
+    else
+      @item = Item.new(items_params)
+      render :edit
+    end
+  end
 
   # def destroy
   #   item = Item.find(params[:id])
@@ -56,6 +56,6 @@ class ItemsController < ApplicationController
 
   def move_to_index
     redirect_to root_path if current_user.id != Item.find(params[:id]).user.id
-    redirect_to root_path if Item.find(params[:id]).order.present?
+    # redirect_to root_path if Item.find(params[:id]).order.present?
   end
 end
