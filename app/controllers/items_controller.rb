@@ -1,18 +1,10 @@
 class ItemsController < ApplicationController
   # require './app/common_class/create_instance'
-  before_action -> { create_item("find") },   only: [:show, :edit, :update, :destroy]
-  before_action -> { create_item("order") },  only: [:index]
-  before_action -> { create_item("new") },    only: [:new]
-  before_action -> { create_item("params") }, only: [:create]
-  def create_item(method)
-    case method
-      when "find"   then @item  = Item.find(params[:id])
-      when "order"  then @items = Item.order("created_at DESC")
-      when "new"    then @item  = Item.new
-      when "params" then @item  = Item.new(items_params)
-    end
-  end
-  
+  before_action -> { @item  = Item.find(params[:id]) },         only: [:show, :edit, :update, :destroy]
+  before_action -> { @items  = Item.order("created_at DESC") }, only: [:index]
+  before_action -> { @item  = Item.new },                       only: [:new]
+  before_action -> { @item  = Item.new(items_params) },         only: [:create]
+
   before_action :authenticate_user!, only: [:new, :edit, :update, :destroy]
   before_action :move_to_index,      only: [:edit, :update, :destroy]
   def move_to_index
