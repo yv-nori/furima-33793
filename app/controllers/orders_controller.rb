@@ -1,16 +1,11 @@
 class OrdersController < ApplicationController
-  before_action -> { create_order_address("new") },    only: [:index]
-  before_action -> { create_order_address("params") }, only: [:create]
-  def create_order_address(method)
-    case method
-      when "new"    then @order_address = OrderAddress.new
-      when "params" then @order_address = OrderAddress.new(order_address_params)
-    end
+  before_action -> { @order_address = OrderAddress.new },   only: [:index]
+  before_action -> { @item = Item.find(params[:item_id]) }, only: [:index]
+  before_action -> { @order_address = OrderAddress.new(order_address_params) }, only: [:create]
+   
+  def index
   end
 
-  def index
-    @item = Item.find(params[:item_id])
-  end
   def create
     if @order_address.save
       redirect_to root_path
@@ -20,6 +15,7 @@ class OrdersController < ApplicationController
       render :index
     end
   end
+
   private
 
   def order_address_params
