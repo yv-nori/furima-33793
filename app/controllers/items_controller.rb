@@ -1,4 +1,5 @@
 class ItemsController < ApplicationController
+  # require './app/common_class/create_instance'
   before_action -> { create_item("find") },   only: [:show, :edit, :update, :destroy]
   before_action -> { create_item("order") },  only: [:index]
   before_action -> { create_item("new") },    only: [:new]
@@ -11,7 +12,7 @@ class ItemsController < ApplicationController
       when "params" then @item  = Item.new(items_params)
     end
   end
-
+  
   before_action :authenticate_user!, only: [:new, :edit, :update, :destroy]
   before_action :move_to_index,      only: [:edit, :update, :destroy]
   def move_to_index

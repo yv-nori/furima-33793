@@ -6,13 +6,13 @@ class OrderAddress
                 :phone_number, :token, :user_id, :item_id
 
   VALID_POSTAL_REGEX = /\A[0-9]{3}-[0-9]{4}\z/
-  
+
   with_options presence: true do
-    validates :postal_code, format:        { with: VALID_POSTAL_REGEX }
-    validates :prefecture, numericality:   { other_than: 0 }
+    validates :postal_code, format:         { with: VALID_POSTAL_REGEX }
+    validates :prefecture_id, numericality: { other_than: 0 }
     validates :city
     validates :addresses
-    validates :phone_number, numericality: { only_integer: true }, length: { in: 0..11 }
+    validates :phone_number, numericality:  { only_integer: true }, length: { in: 0..11 }
     # validates :token
   end
 
