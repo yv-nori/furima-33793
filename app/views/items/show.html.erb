@@ -32,8 +32,13 @@
         <p class='or-text'>or</p>
         <%= link_to '削除', item_path(@item.id), method: :delete, class:'item-destroy' %>
       <%# 商品が売れていない場合はこちらを表示しましょう %>
+
+      <%# elsif @item.order.blank? %>
+        <%#= link_to '購入画面に進む', item_orders_path(params[:id]) ,class:"item-red-btn"%>
+
       <% else %>
         <%= link_to '購入画面に進む', item_orders_path(params[:id]) ,class:"item-red-btn"%>
+
       <% end %>
     <% end %>
     <%# //商品が売れていない場合はこちらを表示しましょう %>

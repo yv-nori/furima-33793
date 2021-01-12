@@ -1,21 +1,34 @@
 class ItemsController < ApplicationController
+  before_action -> { create_item("find") },   only: [:show, :edit, :update]
+  before_action -> { create_item("order") },  only: [:index]
+  before_action -> { create_item("new") },    only: [:new]
+  before_action -> { create_item("params") }, only: [:create]
+  def create_item(method)
+    case method
+      when "find"   then @item  = Item.find(params[:id])
+      when "order"  then @items = Item.order("created_at DESC")
+      when "new"    then @item  = Item.new
+      when "params" then @item  = Item.new(items_params)
+    end
+  end
+
   before_action :authenticate_user!, only: [:new, :edit, :update, :destroy]
-  before_action :move_to_index, only: [:edit, :update, :destroy]
+  before_action :move_to_index,      only: [:edit, :update, :destroy]
+  def move_to_index
+    redirect_to root_path if current_user.id != Item.find(params[:id]).user.id
+    # redirect_to root_path if Item.find(params[:id]).order.present?
+  end
 
   def index
-    @items = Item.order("created_at DESC")
   end
 
   def new
-    @item = Item.new
   end
 
   def show
-    @item = Item.find(params[:id])
   end
 
   def create
-    @item = Item.new(items_params)
     if @item.save
       redirect_to root_path
     else
@@ -23,19 +36,17 @@ class ItemsController < ApplicationController
     end
   end
 
-  # def edit
-  #   @item = Item.find(params[:id])
-  # end
+  def edit
+  end
 
-  # def update
-  #   item = Item.find(params[:id])
-  #   if item.update(items_params)
-  #     redirect_to action: :show
-  #   else
-  #     @item = Item.new(items_params)
-  #     render :edit
-  #   end
-  # end
+  def update
+    if @item.update(items_params)
+      redirect_to action: :show
+    else
+      create_item("params")
+      render :edit
+    end
+  end
 
   # def destroy
   #   item = Item.find(params[:id])
@@ -54,8 +65,4 @@ class ItemsController < ApplicationController
     ).merge(user_id: current_user.id)
   end
 
-  def move_to_index
-    redirect_to root_path if current_user.id != Item.find(params[:id]).user.id
-    redirect_to root_path if Item.find(params[:id]).order.present?
-  end
 end
