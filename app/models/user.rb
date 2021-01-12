@@ -17,5 +17,5 @@ class User < ApplicationRecord
     validates :password,        format: {with: VALID_PASSWORD_REGEX}
   end
   has_many :items,  dependent: :destroy
-  # has_many :orders, dependent: :destroy
+  has_many :orders, dependent: :destroy
 end
