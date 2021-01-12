@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  before_action -> { create_item("find") },   only: [:show, :edit, :update]
+  before_action -> { create_item("find") },   only: [:show, :edit, :update, :destory]
   before_action -> { create_item("order") },  only: [:index]
   before_action -> { create_item("new") },    only: [:new]
   before_action -> { create_item("params") }, only: [:create]
@@ -48,11 +48,10 @@ class ItemsController < ApplicationController
     end
   end
 
-  # def destroy
-  #   item = Item.find(params[:id])
-  #   item.destroy
-  #   redirect_to root_path
-  # end
+  def destroy
+    item.destroy
+    redirect_to root_path
+  end
 
   private
 
