@@ -1,6 +1,8 @@
 class OrdersController < ApplicationController
   before_action -> { @order_address = OrderAddress.new(item_id: params[:item_id]) }, only: [:index]
   before_action -> { @order_address = OrderAddress.new(order_address_params) },      only: [:create]
+  before_action :authenticate_user!, only: [:index, :create]
+
   def index
   end
 
@@ -15,7 +17,6 @@ class OrdersController < ApplicationController
       )
       redirect_to root_path
     else
-      @order_address = OrderAddress.new(order_address_params)
       render :index
     end
   end
