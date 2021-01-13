@@ -9,7 +9,7 @@ FactoryBot.define do
     city          { address.city.kanji }
     addresses     { address.town.kanji + Faker::Address.state_abbr }
     building      { Faker::Lorem.word }
-    phone_number  { Faker::Base.numerify "###########"}
-    token         { Faker::Base.numerify "###" }
+    phone_number  { Faker::Base.numerify '###########' }
+    token         { Faker::Base.numerify '###' }
   end
 end

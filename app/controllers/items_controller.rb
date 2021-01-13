@@ -1,16 +1,14 @@
 class ItemsController < ApplicationController
   before_action -> { @item  = Item.find(params[:id]) },         only: [:show, :edit, :update, :destroy]
-  before_action -> { @items = Item.order("created_at DESC") },  only: [:index]
+  before_action -> { @items = Item.order('created_at DESC') },  only: [:index]
   before_action -> { @item  = Item.new },                       only: [:new]
   before_action -> { @item  = Item.new(items_params) },         only: [:create]
 
   before_action :authenticate_user!, only: [:new, :edit, :update, :destroy]
   before_action :move_to_index,      only: [:edit, :update, :destroy]
-  
+
   def move_to_index
-    if current_user.id != Item.find(params[:id]).user.id || Item.find(params[:id]).order.present?
-      redirect_to root_path 
-    end
+    redirect_to root_path if current_user.id != Item.find(params[:id]).user.id || Item.find(params[:id]).order.present?
   end
 
   def index
@@ -57,5 +55,4 @@ class ItemsController < ApplicationController
       :price
     ).merge(user_id: current_user.id)
   end
-
 end

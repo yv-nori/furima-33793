@@ -5,7 +5,8 @@
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
-  
+  # specのテストの挙動がおかしい時
+  config.active_job.queue_adapter = :inline
   config.cache_classes = false
 
   # Do not eager load code on boot. This avoids loading your whole application

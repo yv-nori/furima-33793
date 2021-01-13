@@ -3,11 +3,9 @@ class OrdersController < ApplicationController
   before_action -> { @order_address = OrderAddress.new(order_address_params) },      only: [:create]
   before_action :authenticate_user!, only: [:index, :create]
   before_action :move_to_index,      only: [:index, :create]
-  
+
   def move_to_index
-    if current_user.id === Item.find(params[:item_id]).user.id || Item.find(params[:item_id]).order.present?
-      redirect_to root_path 
-    end
+    redirect_to root_path if current_user.id === Item.find(params[:item_id]).user.id || Item.find(params[:item_id]).order.present?
   end
 
   def index
@@ -16,9 +14,9 @@ class OrdersController < ApplicationController
   def create
     if @order_address.valid?
       @order_address.save
-      Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
+      Payjp.api_key = ENV['PAYJP_SECRET_KEY']
       Payjp::Charge.create(
-        amount: order_address_params[:price],
+        amount: Item.find(params[:item_id]).price,
         card: order_address_params[:token],
         currency: 'jpy'
       )
@@ -31,7 +29,8 @@ class OrdersController < ApplicationController
   private
 
   def order_address_params
-    params.require(:order_address).permit(:postal_code, :prefecture_id, :city, :building, :phone_number, :addresses, :price).merge(token: params[:token], price: Item.find(params[:item_id]).price, user_id: current_user.id, item_id: params[:item_id])
+    params.require(:order_address).permit(:postal_code, :prefecture_id, :city, :building, :phone_number, :addresses).merge(
+      token: params[:token], user_id: current_user.id, item_id: params[:item_id]
+    )
   end
-
 end

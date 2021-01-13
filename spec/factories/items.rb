@@ -3,7 +3,6 @@ FactoryBot.define do
     transient do
       person { Gimei.name }
     end
-    image                  { Faker::Lorem.sentence }
     name                   { Faker::Lorem.word }
     info                   { Faker::Lorem.sentence }
     category_id            { 1 }
