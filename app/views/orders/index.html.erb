@@ -7,14 +7,14 @@
     </h1>
     <%# 購入内容の表示 %>
     <div class='buy-item-info'>
-      <%= image_tag @item.image, class: 'buy-item-img' if @item.image.attached? %>
+      <%= image_tag @order_address.item.image, class: 'buy-item-img' if @order_address.item.image.attached? %>
       <div class='buy-item-right-content'>
         <h2 class='buy-item-text'>
-          <%= @item.name %>
+          <%= @order_address.item.name %>
         </h2>
         <div class='buy-item-price'>
-          <p class='item-price-text'>¥<%= @item.price %></p>
-          <p class='item-price-sub-text'><%= @item.shipping_fee_status.name %></p>
+          <p class='item-price-text'>¥<%= @order_address.item.price %></p>
+          <p class='item-price-sub-text'><%= @order_address.item.shipping_fee_status.name %></p>
         </div>
       </div>
     </div>
@@ -26,7 +26,7 @@
         支払金額
       </h1>
       <p class='item-payment-price'>
-        ¥<%= @item.price %>
+        ¥<%= @order_address.item.price %>
       </p>
     </div>
     <%# /支払額の表示 %>

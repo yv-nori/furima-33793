@@ -1,9 +1,7 @@
 class OrderAddress
   include ActiveModel::Model
 
-  attr_accessor :postal_code,:prefecture_id,
-                :city, :addresses, :building,
-                :phone_number, :token, :user_id, :item_id
+  attr_accessor :postal_code,:prefecture_id,:city, :addresses, :building, :phone_number, :user_id, :item_id, :price, :token
 
   VALID_POSTAL_REGEX = /\A[0-9]{3}-[0-9]{4}\z/
 
@@ -13,9 +11,12 @@ class OrderAddress
     validates :city
     validates :addresses
     validates :phone_number, numericality:  { only_integer: true }, length: { in: 0..11 }
-    # validates :token
+    validates :token
   end
 
+  def item
+    return Item.find(item_id)
+  end
   def save
     user = User.find(user_id)
     item = Item.find(item_id)

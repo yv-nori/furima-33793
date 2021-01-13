@@ -1,5 +1,4 @@
 class ItemsController < ApplicationController
-  # require './app/common_class/create_instance'
   before_action -> { @item  = Item.find(params[:id]) },         only: [:show, :edit, :update, :destroy]
   before_action -> { @items = Item.order("created_at DESC") },  only: [:index]
   before_action -> { @item  = Item.new },                       only: [:new]
@@ -9,8 +8,9 @@ class ItemsController < ApplicationController
   before_action :move_to_index,      only: [:edit, :update, :destroy]
   
   def move_to_index
-    redirect_to root_path if current_user.id != Item.find(params[:id]).user.id
-    redirect_to root_path if Item.find(params[:id]).order.present?
+    if current_user.id != Item.find(params[:id]).user.id || Item.find(params[:id]).order.present?
+      redirect_to root_path 
+    end
   end
 
   def index
