@@ -35,7 +35,6 @@ class ItemsController < ApplicationController
     if @item.update(items_params)
       redirect_to action: :show
     else
-      @item  = Item.new(items_params)
       render :edit
     end
   end
