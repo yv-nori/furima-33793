@@ -49,6 +49,7 @@
   font-weight: bold;
   align-items: center;
   margin-top: 10px;
+  flex-direction: column;
 }
 
 .item-price-text {
